@@ -98,9 +98,39 @@ background:#111;
 
 </div>
 
-<footer>
+<footer id="footer">
 © Brometal 2026
 </footer>
 
+<script>
+fetch("data.json")
+.then(res => res.json())
+.then(d => {
+
+document.getElementById("title").innerText = d.title;
+document.getElementById("hero_title").innerText = d.hero_title;
+document.getElementById("hero_sub").innerText = d.hero_sub;
+
+// الخدمات
+let servicesDiv = document.getElementById("services");
+servicesDiv.innerHTML = "";
+d.services.forEach(s => {
+  let div = document.createElement("div");
+  div.className = "card";
+  div.innerText = s;
+  servicesDiv.appendChild(div);
+});
+
+// الروابط
+document.getElementById("whatsapp").href = d.links.whatsapp;
+document.getElementById("telegram").href = d.links.telegram;
+document.getElementById("facebook").href = d.links.facebook;
+
+// الفوتر
+document.getElementById("footer").innerText = d.footer;
+
+});
+</script>
+
 </body>
-</html>
+  </html>
