@@ -1,16 +1,31 @@
 {
-  "title": "BROMETAL",
-  "hero_title": "تصنيع معدني - لوحات - طباعة",
-  "hero_sub": "حلول احترافية لعرض أعمالك التجارية",
-  "services": [
-    "تصنيع معدني احترافي",
-    "لوحات إعلانية",
-    "طباعة وتجهيز"
-  ],
-  "links": {
-    "whatsapp": "https://wa.me/000000000",
-    "telegram": "https://t.me/your_channel",
-    "facebook": "https://facebook.com/your_page"
-  },
-  "footer": "© Brometal 2026"
+"title": "Brometal",
+"hero_title": "تصنيع معدني - لوحات - طباعة",
+"hero_sub": "حلول احترافية للأعمال المعدنية",
+
+"about": "نحن شركة متخصصة في التصنيع المعدني، اللوحات الإعلانية والطباعة بجودة عالية.",
+
+"services": [
+"تصنيع معدني احترافي",
+"لوحات إعلانية",
+"طباعة وتجهيز"
+],
+
+"prices": [
+{"name":"لوحة إعلانية","price":"50€"},
+{"name":"طباعة","price":"20€"}
+],
+
+"gallery": [
+"img1.jpg",
+"img2.jpg"
+],
+
+"links": {
+"whatsapp": "https://wa.me/000",
+"telegram": "https://t.me/your_channel",
+"facebook": "https://facebook.com/your_page"
+},
+
+"footer": "© Brometal 2026"
 }
