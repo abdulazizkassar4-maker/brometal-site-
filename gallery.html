@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>المعرض</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#0d0d0d;color:#fff}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:10px;
+padding:20px;
+}
+
+.grid img{
+width:100%;
+border-radius:10px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.grid img:hover{
+transform:scale(1.05);
+}
+
+#lightbox{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+#lightbox img{
+max-width:90%;
+max-height:90%;
+border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="nav"></div>
+
+<h2 style="text-align:center">المعرض</h2>
+
+<div id="gallery" class="grid"></div>
+
+<div id="lightbox" onclick="this.style.display='none'">
+<img id="lightboxImg">
+</div>
+
+<script>
+fetch("nav.html")
+.then(r => r.text())
+.then(data => {
+document.getElementById("nav").innerHTML = data;
+});
+
+fetch("data.json")
+.then(r=>r.json())
+.then(d=>{
+
+let g=document.getElementById("gallery");
+
+d.gallery.forEach(img=>{
+let i=document.createElement("img");
+i.src=img;
+
+i.onclick=function(){
+document.getElementById("lightboxImg").src=img;
+document.getElementById("lightbox").style.display="flex";
+};
+
+g.appendChild(i);
+});
+
+});
+</script>
+
+</body>
+  </html>
