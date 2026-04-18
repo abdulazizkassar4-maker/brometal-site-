@@ -83,7 +83,47 @@ footer.innerText=d.footer;
 
 });
 </script>
+fetch("data.json")
+.then(r => r.json())
+.then(d => {
 
+// العنوان
+document.getElementById("title").innerText = d.title;
+
+// الهيرو
+document.getElementById("hero_title").innerText = d.hero_title;
+document.getElementById("hero_sub").innerText = d.hero_sub;
+
+// الخدمات
+let s = document.getElementById("services");
+s.innerHTML = "";
+d.services.forEach(x => {
+let div = document.createElement("div");
+div.className = "card";
+div.innerText = x;
+s.appendChild(div);
+});
+
+// الأسعار
+let p = document.getElementById("prices");
+p.innerHTML = "";
+d.prices.forEach(x => {
+let div = document.createElement("div");
+div.className = "card";
+div.innerText = x.name + " - " + x.price;
+p.appendChild(div);
+});
+
+// الروابط
+document.getElementById("whatsapp").href = d.links.whatsapp;
+document.getElementById("telegram").href = d.links.telegram;
+document.getElementById("facebook").href = d.links.facebook;
+
+// الفوتر
+document.getElementById("footer").innerText = d.footer;
+
+});
+</script>
 </body>
 </html>
 
