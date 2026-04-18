@@ -13,104 +13,133 @@ background:#0d0d0d;
 color:#fff;
 }
 
-header{
-padding:20px;
+/* NAV */
+nav{
+background:rgba(10,10,10,0.92);
+backdrop-filter:blur(10px);
+padding:14px;
 text-align:center;
-background:#111;
-color:#00c3ff;
-font-size:26px;
-font-weight:bold;
+position:sticky;
+top:0;
+z-index:999;
+border-bottom:1px solid #222;
 }
 
+nav a{
+color:#ccc;
+margin:10px;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#00c3ff;
+}
+
+/* HERO SLIDER */
 .hero{
 text-align:center;
-padding:60px;
+padding:90px 20px;
 background:#1a1a1a;
+transition:1s;
 }
 
+.hero h1{
+font-size:36px;
+color:#00c3ff;
+margin-bottom:10px;
+}
+
+.hero p{
+color:#aaa;
+}
+
+.fade{
+animation:fade 1s ease;
+}
+
+@keyframes fade{
+from{opacity:0;transform:scale(1.05)}
+to{opacity:1;transform:scale(1)}
+}
+
+/* SECTIONS */
 .section{
-padding:30px;
+padding:40px 20px;
 text-align:center;
 }
 
+/* CARDS */
 .card{
-background:#1c1c1c;
-margin:10px;
-padding:12px;
-border-radius:8px;
+background:linear-gradient(145deg,#161616,#101010);
+margin:12px auto;
+padding:18px;
+border-radius:14px;
+max-width:520px;
+border:1px solid #222;
+transition:0.3s;
 }
 
+.card:hover{
+transform:translateY(-5px);
+border-color:#00c3ff;
+box-shadow:0 10px 25px rgba(0,195,255,0.08);
+}
+
+/* LINKS */
 a{
 color:#00c3ff;
 text-decoration:none;
 display:block;
-margin:5px;
+margin:6px;
 }
 
-/* --- Gallery Grid --- */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:10px;
-padding:10px;
+/* FOOTER */
+footer{
+text-align:center;
+padding:20px;
+background:#0f0f0f;
+color:#666;
+border-top:1px solid #222;
 }
 
-.grid img{
-width:100%;
-border-radius:10px;
-cursor:pointer;
-transition:0.3s;
-}
-
-.grid img:hover{
-transform:scale(1.05);
-}
-
-/* --- Lightbox --- */
-#lightbox{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.9);
-display:none;
-justify-content:center;
-align-items:center;
-}
-
-#lightbox img{
-max-width:90%;
-max-height:90%;
-border-radius:10px;
+/* MOBILE */
+@media(max-width:600px){
+.hero h1{font-size:26px;}
+.card{margin:10px;}
 }
 </style>
 </head>
 
 <body>
 
-<header id="title">Brometal</header>
+<!-- NAV -->
+<nav>
+<a href="index.html">الرئيسية</a>
+<a href="about.html">من نحن</a>
+<a href="gallery.html">المعرض</a>
+</nav>
 
-<div class="hero">
+<!-- HERO -->
+<div class="hero" id="slider">
 <h1 id="hero_title"></h1>
 <p id="hero_sub"></p>
 </div>
 
+<!-- SERVICES -->
 <div class="section">
 <h2>خدماتنا</h2>
 <div id="services"></div>
 </div>
 
+<!-- PRICES -->
 <div class="section">
 <h2>الأسعار</h2>
 <div id="prices"></div>
 </div>
 
-<div class="section">
-<h2>المعرض</h2>
-<div id="gallery" class="grid"></div>
-</div>
-
+<!-- CONTACT -->
 <div class="section">
 <h2>تواصل معنا</h2>
 <a id="whatsapp">واتساب</a>
@@ -118,69 +147,78 @@ border-radius:10px;
 <a id="facebook">فيسبوك</a>
 </div>
 
-<div class="section">
-<p id="footer"></p>
-</div>
-
-<!-- Lightbox -->
-<div id="lightbox" onclick="this.style.display='none'">
-<img id="lightboxImg">
-</div>
+<!-- FOOTER -->
+<footer id="footer"></footer>
 
 <script>
 fetch("data.json")
 .then(r => r.json())
 .then(d => {
 
-// العنوان
-document.getElementById("title").innerText = d.title;
+// TITLE
+document.title = d.title;
 
-// الهيرو
-document.getElementById("hero_title").innerText = d.hero_title;
-document.getElementById("hero_sub").innerText = d.hero_sub;
+// SLIDER
+let slides = [
+{
+title: d.hero_title,
+sub: d.hero_sub
+},
+{
+title: "تصنيع معدني احترافي",
+sub: "جودة عالية وحلول متكاملة"
+},
+{
+title: "Brometal Engineering",
+sub: "نحو صناعة احترافية"
+}
+];
 
-// الخدمات
+let index = 0;
+
+function showSlide(){
+let hero = document.getElementById("slider");
+
+hero.classList.remove("fade");
+void hero.offsetWidth;
+hero.classList.add("fade");
+
+document.getElementById("hero_title").innerText = slides[index].title;
+document.getElementById("hero_sub").innerText = slides[index].sub;
+
+index++;
+if(index >= slides.length) index = 0;
+}
+
+showSlide();
+setInterval(showSlide, 4000);
+
+// SERVICES
 let s = document.getElementById("services");
 s.innerHTML = "";
-d.services.forEach(x => {
+d.services.forEach(x=>{
 let div = document.createElement("div");
 div.className = "card";
 div.innerText = x;
 s.appendChild(div);
 });
 
-// الأسعار
+// PRICES
 let p = document.getElementById("prices");
 p.innerHTML = "";
-d.prices.forEach(x => {
+d.prices.forEach(x=>{
 let div = document.createElement("div");
 div.className = "card";
 div.innerText = x.name + " - " + x.price;
 p.appendChild(div);
 });
 
-// المعرض (Grid + تكبير)
-let g = document.getElementById("gallery");
-g.innerHTML = "";
-
-d.gallery.forEach(img => {
-let i = document.createElement("img");
-i.src = img;
-
-i.onclick = function(){
-document.getElementById("lightboxImg").src = img;
-document.getElementById("lightbox").style.display = "flex";
-};
-
-g.appendChild(i);
-});
-
-// الروابط
+// LINKS
 document.getElementById("whatsapp").href = d.links.whatsapp;
 document.getElementById("telegram").href = d.links.telegram;
 document.getElementById("facebook").href = d.links.facebook;
 
-// الفوتر
+// FOOTER
 document.getElementById("footer").innerText = d.footer;
 
 });
