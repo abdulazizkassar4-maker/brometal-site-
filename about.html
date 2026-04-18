@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>من نحن</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#0d0d0d;color:#fff}
+
+.content{
+padding:40px;
+text-align:center;
+line-height:1.8;
+}
+</style>
+</head>
+
+<body>
+
+<div id="nav"></div>
+
+<div class="content">
+<h2>من نحن</h2>
+<p id="about"></p>
+</div>
+
+<script>
+fetch("nav.html")
+.then(r => r.text())
+.then(data => {
+document.getElementById("nav").innerHTML = data;
+});
+
+fetch("data.json")
+.then(r=>r.json())
+.then(d=>{
+document.getElementById("about").innerText=d.about;
+});
+</script>
+
+</body>
+</html>
